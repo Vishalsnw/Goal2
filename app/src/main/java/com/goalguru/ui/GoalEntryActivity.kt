@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
+import com.goalguru.Config
 import com.goalguru.R
 import com.goalguru.data.Goal
 import com.goalguru.data.GoalGuruDatabase
@@ -23,7 +24,7 @@ class GoalEntryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_goal_entry)
 
         db = GoalGuruDatabase.getDatabase(this)
-        aiService = AIService("dummy-key")
+        aiService = AIService(Config.OPENROUTER_API_KEY)
 
         val goalInput = findViewById<EditText>(R.id.et_goal)
         val submitButton = findViewById<MaterialButton>(R.id.btn_submit_goal)

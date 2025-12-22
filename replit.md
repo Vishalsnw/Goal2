@@ -80,8 +80,8 @@ GoalGuru/
 ## Configuration Required
 
 ### API Keys
-- **DeepSeek/OpenRouter API Key**: Set in SharedPreferences or as environment variable
-  - The AIService class initializes with a placeholder key; update with actual key before running
+- **DeepSeek/OpenRouter API Key**: ✅ Configured in `Config.kt`
+  - Already set and ready to use with all API calls
 
 ### Firebase
 - **google-services.json**: Place in `app/` directory
