@@ -1,14 +1,15 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.goalguru"
+    namespace = "com.goalguru.goalguru"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.goalguru"
+        applicationId = "com.goalguru.goalguru"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
