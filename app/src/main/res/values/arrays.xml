@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="roast_levels">
+        <item>@string/mild</item>
+        <item>@string/spicy</item>
+        <item>@string/extra_spicy</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>@string/english</item>
+        <item>@string/hindi</item>
+    </string-array>
+
+    <string-array name="genders">
+        <item>@string/male</item>
+        <item>@string/female</item>
+        <item>@string/other</item>
+    </string-array>
+
+    <string-array name="themes">
+        <item>@string/light</item>
+        <item>@string/dark</item>
+        <item>@string/system</item>
+    </string-array>
+</resources>

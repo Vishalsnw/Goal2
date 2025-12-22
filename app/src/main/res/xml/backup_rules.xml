@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<backup-scheme xmlns:android="http://schemas.android.com/apk/res/android">
+    <domain-config>
+        <domain>@string/app_name</domain>
+        <path-list>
+            <exclude path="/cache" />
+        </path-list>
+    </domain-config>
+</backup-scheme>

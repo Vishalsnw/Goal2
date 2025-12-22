@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GoalGuru</string>
+    <string name="welcome">Welcome to GoalGuru</string>
+    <string name="enter_goal">Enter Your Goal</string>
+    <string name="today_task">Today\'s Task</string>
+    <string name="complete_task">Complete Task</string>
+    <string name="skip_task">Skip Task</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="settings">Settings</string>
+    <string name="roast_level">Roast Level</string>
+    <string name="language">Language</string>
+    <string name="gender">Gender</string>
+    <string name="notification_time">Notification Time</string>
+    <string name="theme">Theme</string>
+    <string name="mild">Mild</string>
+    <string name="spicy">Spicy</string>
+    <string name="extra_spicy">Extra Spicy</string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="system">System</string>
+    <string name="generating_roadmap">Generating your goal roadmap...</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+</resources>

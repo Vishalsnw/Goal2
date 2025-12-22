@@ -1,0 +1,6 @@
+-keep class com.goalguru.** { *; }
+-keep class com.google.firebase.** { *; }
+-keep class retrofit2.** { *; }
+-keep class com.squareup.okhttp3.** { *; }
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
