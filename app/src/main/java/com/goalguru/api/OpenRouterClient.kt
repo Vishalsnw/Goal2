@@ -46,12 +46,12 @@ data class Usage(
 )
 
 object OpenRouterClient {
-    private const val BASE_URL = "https://api.deepseek.com/chat/completions"
+    private const val BASE_URL = "https://api.deepseek.com/v1/"
 
     fun create(apiKey: String): OpenRouterAPI {
         val client = OkHttpClient()
         return Retrofit.Builder()
-            .baseUrl("https://api.deepseek.com/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
