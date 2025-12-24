@@ -1,5 +1,7 @@
 package com.goalguru
 
+import com.goalguru.BuildConfig
+
 object Config {
-    const val OPENROUTER_API_KEY = "sk-68be7759cb7746dbb0b90edba8e78fe0"
+    const val DEEPSEEK_API_KEY = BuildConfig.DEEPSEEK_API_KEY
 }
