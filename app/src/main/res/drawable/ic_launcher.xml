@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
     <path
-        android:fillColor="#3F51B5"
-        android:pathData="M0,0h108v108h-108z" />
-    <circle
-        android:cx="54"
-        android:cy="54"
-        android:r="35"
+        android:pathData="M0,0h108v108h-108z"
+        android:fillColor="#3F51B5" />
+    <path
+        android:pathData="M54,19C35.3,19 20,34.3 20,53c0,18.7 15.3,34 34,34s34,-15.3 34,-34c0,-18.7 -15.3,-34 -34,-34zM54,80c-14.9,0 -27,-12.1 -27,-27s12.1,-27 27,-27 27,12.1 27,27 -12.1,27 -27,27z"
         android:fillColor="#FFFFFF" />
-    <text
-        android:x="54"
-        android:y="60"
-        android:textSize="40"
-        android:textColor="#3F51B5"
-        android:textStyle="bold"
-        android:textAlignment="center">G</text>
+    <path
+        android:pathData="M50,48h4v14h-4z"
+        android:fillColor="#3F51B5" />
+    <path
+        android:pathData="M54,48h4v14h-4z"
+        android:fillColor="#3F51B5" />
 </vector>
