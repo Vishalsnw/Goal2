@@ -51,9 +51,9 @@ android {
         }
     }
     
-    lintOptions {
+    lint {
         abortOnError = false
-        disable("MissingTranslation")
+        disable += "MissingTranslation"
     }
 
     compileOptions {
