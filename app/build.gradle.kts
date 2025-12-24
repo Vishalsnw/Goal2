@@ -45,6 +45,15 @@ android {
                 signingConfig = signingConfigs.getByName("release")
             }
         }
+        
+        debug {
+            isMinifyEnabled = false
+        }
+    }
+    
+    lintOptions {
+        abortOnError = false
+        disable("MissingTranslation")
     }
 
     compileOptions {

@@ -7,27 +7,6 @@ channel = "stable-25_05"
 packages = ["gradle"]
 
 [workflows]
-runButton = "Project"
-
-[[workflows.workflow]]
-name = "Project"
-mode = "parallel"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Android Build"
-
-[[workflows.workflow]]
-name = "Android Build"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "gradle assembleRelease"
-
-[workflows.workflow.metadata]
-outputType = "console"
 
 [[ports]]
 localPort = 5000
