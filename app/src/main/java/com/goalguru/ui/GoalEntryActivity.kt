@@ -1,36 +1,33 @@
 package com.goalguru.ui
 
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.button.MaterialButton
 import com.goalguru.Config
-import com.goalguru.R
 import com.goalguru.data.Goal
 import com.goalguru.data.GoalGuruDatabase
 import com.goalguru.data.Task
+import com.goalguru.databinding.ActivityGoalEntryBinding
 import com.goalguru.service.AIService
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class GoalEntryActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityGoalEntryBinding
     private lateinit var db: GoalGuruDatabase
     private lateinit var aiService: AIService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_goal_entry)
+        binding = ActivityGoalEntryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         db = GoalGuruDatabase.getDatabase(this)
         aiService = AIService(Config.OPENROUTER_API_KEY)
 
-        val goalInput = findViewById<EditText>(R.id.et_goal)
-        val submitButton = findViewById<MaterialButton>(R.id.btn_submit_goal)
-
-        submitButton.setOnClickListener {
-            val goalText = goalInput.text.toString().trim()
+        binding.btnSubmitGoal.setOnClickListener {
+            val goalText = binding.etGoal.text.toString().trim()
             if (goalText.isEmpty()) {
                 Toast.makeText(this, "Please enter a goal", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

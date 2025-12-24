@@ -4,18 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.button.MaterialButton
-import com.goalguru.R
 import com.goalguru.data.GoalGuruDatabase
 import com.goalguru.data.UserPreferences
+import com.goalguru.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     private lateinit var db: GoalGuruDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         db = GoalGuruDatabase.getDatabase(this)
 
@@ -26,19 +27,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<MaterialButton>(R.id.btn_new_goal).setOnClickListener {
+        binding.btnNewGoal.setOnClickListener {
             startActivity(Intent(this, GoalEntryActivity::class.java))
         }
 
-        findViewById<MaterialButton>(R.id.btn_daily_task).setOnClickListener {
+        binding.btnDailyTask.setOnClickListener {
             startActivity(Intent(this, DailyTaskActivity::class.java))
         }
 
-        findViewById<MaterialButton>(R.id.btn_dashboard).setOnClickListener {
+        binding.btnDashboard.setOnClickListener {
             startActivity(Intent(this, DashboardActivity::class.java))
         }
 
-        findViewById<MaterialButton>(R.id.btn_settings).setOnClickListener {
+        binding.btnSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
