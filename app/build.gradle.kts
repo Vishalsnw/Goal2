@@ -8,6 +8,12 @@ plugins {
 android {
     namespace = "com.goalguru.goalguru"
     compileSdk = 34
+    
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
 
     defaultConfig {
         applicationId = "com.goalguru.goalguru"
