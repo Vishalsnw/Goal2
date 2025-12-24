@@ -33,7 +33,7 @@ This is an Android mobile application built with Kotlin and Jetpack libraries. I
 - **Gradle Version:** 8.4
 
 ## Known Limitations
-- The Replit environment does not provide the Android SDK. Full APK builds (e.g., `gradle assembleDebug`) will fail due to missing SDK components.
+- The Replit environment does not provide the Android SDK. Do not attempt to build the app in Replit as it is already configured with a GitHub Actions workflow for CI/CD builds.
 - Use the "Code Validation" workflow to verify code logic.
 - Refer to `BUILD_INSTRUCTIONS.md` for steps to build the APK locally or via CI.
 
