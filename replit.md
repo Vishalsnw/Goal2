@@ -33,14 +33,11 @@ This is an Android mobile application built with Kotlin and Jetpack libraries. I
 - **Gradle Version:** 8.4
 
 ## Known Limitations
-- The `gradle assembleRelease` workflow requires the Android SDK, which is not available in the Replit environment
-- To build APKs, use Android Studio or a CI/CD pipeline with Android SDK support (like GitHub Actions)
-- The code is fully functional and ready for development in Android Studio
+- The Replit environment does not provide the Android SDK. Full APK builds (e.g., `gradle assembleDebug`) will fail due to missing SDK components.
+- Use the "Code Validation" workflow to verify code logic.
+- Refer to `BUILD_INSTRUCTIONS.md` for steps to build the APK locally or via CI.
 
 ## Recent Changes
-- Fixed namespace mismatch: changed from `com.goalguru.goalguru` to `com.goalguru`
-- Updated applicationId to match source code namespace
-- Disabled lint errors for better compatibility
-- Added debug build variant
-- Created `local.properties` with Android SDK path configuration
-- Removed Android Build workflow (requires SDK not available in Replit)
+- Fixed DeepSeek API integration in `OpenRouterClient.kt`.
+- Repaired Gradle wrapper and script permissions.
+- Added comprehensive `BUILD_INSTRUCTIONS.md`.
