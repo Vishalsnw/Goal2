@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.goalguru.goalguru"
+    namespace = "com.goalguru"
     compileSdk = 34
     
     kapt {
@@ -16,7 +16,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.goalguru.goalguru"
+        applicationId = "com.goalguru"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -26,10 +26,14 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file(System.getenv("KEYSTORE_PATH") ?: "${System.getProperty("user.home")}/.android/goalguru_release.keystore")
-            storePassword = "GoalGuru@2024#SecureKey"
-            keyAlias = "goalguru_key"
-            keyPassword = "GoalGuru@2024#SecureKey"
+            val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${System.getProperty("user.home")}/.android/goalguru_release.keystore"
+            val keystoreFile = file(keystorePath)
+            if (keystoreFile.exists()) {
+                storeFile = keystoreFile
+                storePassword = "GoalGuru@2024#SecureKey"
+                keyAlias = "goalguru_key"
+                keyPassword = "GoalGuru@2024#SecureKey"
+            }
         }
     }
 
@@ -37,7 +41,9 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("release")
+            if (signingConfigs.getByName("release").storeFile?.exists() == true) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 
