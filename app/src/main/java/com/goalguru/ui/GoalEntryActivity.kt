@@ -24,7 +24,7 @@ class GoalEntryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         db = GoalGuruDatabase.getDatabase(this)
-        aiService = AIService(Config.OPENROUTER_API_KEY)
+        aiService = AIService(Config.DEEPSEEK_API_KEY)
 
         binding.btnSubmitGoal.setOnClickListener {
             val goalText = binding.etGoal.text.toString().trim()

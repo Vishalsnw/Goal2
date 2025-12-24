@@ -18,7 +18,7 @@ interface OpenRouterAPI {
 }
 
 data class ChatCompletionRequest(
-    val model: String = "deepseek/deepseek-chat",
+    val model: String = "deepseek-chat",
     val messages: List<ChatMessage>,
     val temperature: Double = 0.7,
     val max_tokens: Int = 2000
@@ -46,12 +46,12 @@ data class Usage(
 )
 
 object OpenRouterClient {
-    private const val BASE_URL = "https://openrouter.io/api/v1/"
+    private const val BASE_URL = "https://api.deepseek.com/chat/completions"
 
     fun create(apiKey: String): OpenRouterAPI {
         val client = OkHttpClient()
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl("https://api.deepseek.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
