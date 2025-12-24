@@ -22,6 +22,8 @@ android {
         versionCode = 1
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        
+        buildConfigField("String", "DEEPSEEK_API_KEY", "\"${System.getenv("DEEPSEEK_API_KEY") ?: ""}\"")
     }
 
     signingConfigs {
@@ -68,6 +70,7 @@ android {
     buildFeatures {
         viewBinding = true
         compose = false
+        buildConfig = true
     }
 }
 
