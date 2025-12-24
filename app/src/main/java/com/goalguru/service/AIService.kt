@@ -44,6 +44,7 @@ class AIService(private val apiKey: String) {
             val jsonObject = JsonParser.parseString(content).asJsonObject
             return gson.fromJson(jsonObject, Roadmap::class.java)
         } catch (e: Exception) {
+            e.printStackTrace()
             return createFallbackRoadmap(goal, duration)
         }
     }
