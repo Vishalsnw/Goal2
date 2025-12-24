@@ -46,7 +46,7 @@ data class Usage(
 )
 
 object OpenRouterClient {
-    private const val BASE_URL = "https://api.deepseek.com/v1/"
+    private const val BASE_URL = "https://api.deepseek.com/"
 
     fun create(apiKey: String): OpenRouterAPI {
         val client = OkHttpClient()
