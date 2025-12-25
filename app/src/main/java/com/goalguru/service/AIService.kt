@@ -39,7 +39,15 @@ class AIService(private val apiKey: String) {
 
         try {
             val response = api.generateRoadmap(request, "Bearer $apiKey")
-            val content = response.choices[0].message.content
+            var content = response.choices[0].message.content
+            
+            // Clean up JSON response if AI included markdown blocks
+            if (content.contains("```json")) {
+                content = content.substringAfter("```json").substringBeforeLast("```")
+            } else if (content.contains("```")) {
+                content = content.substringAfter("```").substringBeforeLast("```")
+            }
+            content = content.trim()
             
             val jsonObject = JsonParser.parseString(content).asJsonObject
             return gson.fromJson(jsonObject, Roadmap::class.java)

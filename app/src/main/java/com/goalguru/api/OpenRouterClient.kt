@@ -49,7 +49,11 @@ object OpenRouterClient {
     private const val BASE_URL = "https://api.deepseek.com/v1/"
 
     fun create(apiKey: String): OpenRouterAPI {
-        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .connectTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+            .readTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+            .writeTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+            .build()
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
