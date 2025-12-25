@@ -14,21 +14,20 @@ class AIService(private val apiKey: String) {
 
     suspend fun generateGoalRoadmap(goal: String, duration: Int = 30): Roadmap {
         val prompt = """
-            Generate a structured $duration-day roadmap for the goal: "$goal"
-            
-            Return ONLY valid JSON (no markdown, no extra text) in this format:
+            Goal: "$goal"
+            Create a $duration-day roadmap.
+            Output ONLY raw JSON. No markdown. No text.
+            Format:
             {
                 "days": [
                     {
                         "day": 1,
-                        "title": "Day title",
-                        "description": "What to do today",
-                        "tips": ["tip1", "tip2"]
+                        "title": "Short Title",
+                        "description": "One sentence task",
+                        "tips": ["One short tip"]
                     }
                 ]
             }
-            
-            Make it practical, achievable, and motivating.
         """.trimIndent()
 
         val request = ChatCompletionRequest(
