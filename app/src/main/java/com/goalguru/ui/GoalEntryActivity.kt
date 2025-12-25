@@ -75,6 +75,9 @@ class GoalEntryActivity : AppCompatActivity() {
             val errorMessage = when {
                 e.message?.contains("timeout", ignoreCase = true) == true -> "Connection timed out. Please try again."
                 e.message?.contains("401") == true -> "Invalid API Key. Please check your configuration."
+                e.message?.contains("malformed", ignoreCase = true) == true -> "Invalid response format. Please try again."
+                e.message?.contains("json", ignoreCase = true) == true -> "Data parsing error. Please try again."
+                e.message?.contains("firebase", ignoreCase = true) == true -> "Firebase initialization error. Please try again."
                 else -> "Failed to generate roadmap: ${e.message}"
             }
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()

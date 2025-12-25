@@ -54,8 +54,12 @@ class AIService(private val apiKey: String) {
             }
             content = content.trim()
             
-            val jsonObject = JsonParser.parseString(content).asJsonObject
-            return gson.fromJson(jsonObject, Roadmap::class.java)
+            try {
+                val jsonObject = JsonParser.parseString(content).asJsonObject
+                return gson.fromJson(jsonObject, Roadmap::class.java)
+            } catch (jsonError: Exception) {
+                throw Exception("Failed to parse AI response as JSON. Response: ${content.take(200)}", jsonError)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             throw e // Rethrow to let the UI handle the error instead of falling back
