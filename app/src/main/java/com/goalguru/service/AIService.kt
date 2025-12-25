@@ -12,8 +12,13 @@ class AIService(private val apiKey: String) {
     private val api = OpenRouterClient.create(apiKey)
     private val gson = Gson()
 
-    suspend fun generateGoalRoadmap(goal: String): Roadmap {
+    suspend fun generateGoalRoadmap(goal: String, userProfile: String? = null): Roadmap {
+        val personalityContext = if (userProfile != null) {
+            "User Profile: $userProfile. Use this to provide culturally aware, friendly, and slightly sarcastic guidance. Use emojis. Be like an experienced human mentor, not a robot."
+        } else ""
+
         val prompt = """
+            $personalityContext
             Goal: "$goal"
             1. Estimate how many days (1-90) it takes to achieve this.
             2. Create a daily roadmap for that duration.

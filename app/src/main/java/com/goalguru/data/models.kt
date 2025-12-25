@@ -30,15 +30,19 @@ data class Task(
 @Entity(tableName = "user_preferences")
 data class UserPreferences(
     @PrimaryKey val id: Int = 1,
-    val roastLevel: String = "SPICY", // MILD, SPICY, EXTRA_SPICY
-    val language: String = "ENGLISH", // ENGLISH, HINDI
+    val name: String = "",
+    val age: Int = 0,
     val gender: String = "OTHER", // MALE, FEMALE, OTHER
+    val country: String = "",
+    val language: String = "ENGLISH", // ENGLISH, HINDI
+    val roastLevel: String = "SPICY", // MILD, SPICY, EXTRA_SPICY
     val notificationTime: String = "09:00", // HH:mm format
     val theme: String = "SYSTEM", // LIGHT, DARK, SYSTEM
     val currentStreak: Int = 0,
     val bestStreak: Int = 0,
     val totalTasks: Int = 0,
-    val completedTasks: Int = 0
+    val completedTasks: Int = 0,
+    val isOnboardingCompleted: Boolean = false
 )
 
 data class Roadmap(

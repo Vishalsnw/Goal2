@@ -42,7 +42,12 @@ class GoalEntryActivity : AppCompatActivity() {
     private suspend fun generateRoadmapAndSaveGoal(goalText: String) {
         setLoading(true)
         try {
-            val roadmap = aiService.generateGoalRoadmap(goalText)
+            val prefs = db.preferencesDao().getPreferencesSync()
+            val userProfile = prefs?.let { 
+                "Name: ${it.name}, Age: ${it.age}, Gender: ${it.gender}, Country: ${it.country}, Language: ${it.language}" 
+            }
+            
+            val roadmap = aiService.generateGoalRoadmap(goalText, userProfile)
             val roadmapJson = Gson().toJson(roadmap)
 
             val goal = Goal(
