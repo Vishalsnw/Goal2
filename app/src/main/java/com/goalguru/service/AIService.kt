@@ -12,19 +12,20 @@ class AIService(private val apiKey: String) {
     private val api = OpenRouterClient.create(apiKey)
     private val gson = Gson()
 
-    suspend fun generateGoalRoadmap(goal: String, duration: Int = 30): Roadmap {
+    suspend fun generateGoalRoadmap(goal: String): Roadmap {
         val prompt = """
             Goal: "$goal"
-            Create a $duration-day roadmap.
-            Output ONLY raw JSON. No markdown. No text.
-            Format:
+            1. Estimate how many days (1-90) it takes to achieve this.
+            2. Create a daily roadmap for that duration.
+            Output ONLY raw JSON.
             {
+                "estimatedDays": 30,
                 "days": [
                     {
                         "day": 1,
-                        "title": "Short Title",
-                        "description": "One sentence task",
-                        "tips": ["One short tip"]
+                        "title": "Title",
+                        "description": "Task",
+                        "tips": ["Tip"]
                     }
                 ]
             }

@@ -42,10 +42,14 @@ class GoalEntryActivity : AppCompatActivity() {
     private suspend fun generateRoadmapAndSaveGoal(goalText: String) {
         setLoading(true)
         try {
-            val roadmap = aiService.generateGoalRoadmap(goalText, 30)
+            val roadmap = aiService.generateGoalRoadmap(goalText)
             val roadmapJson = Gson().toJson(roadmap)
 
-            val goal = Goal(title = goalText, description = goalText, roadmap = roadmapJson)
+            val goal = Goal(
+                title = goalText, 
+                description = "Estimated completion: ${roadmap.estimatedDays} days", 
+                roadmap = roadmapJson
+            )
             val goalId = db.goalDao().insert(goal).toInt()
 
             roadmap.days.forEach { day ->

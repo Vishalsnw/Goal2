@@ -42,6 +42,7 @@ data class UserPreferences(
 )
 
 data class Roadmap(
+    val estimatedDays: Int,
     val days: List<RoadmapDay>
 )
 
