@@ -40,6 +40,7 @@ class GoalEntryActivity : AppCompatActivity() {
     }
 
     private suspend fun generateRoadmapAndSaveGoal(goalText: String) {
+        setLoading(true)
         try {
             val roadmap = aiService.generateGoalRoadmap(goalText, 30)
             val roadmapJson = Gson().toJson(roadmap)
@@ -60,6 +61,7 @@ class GoalEntryActivity : AppCompatActivity() {
             Toast.makeText(this, "Goal created successfully!", Toast.LENGTH_SHORT).show()
             finish()
         } catch (e: Exception) {
+            setLoading(false)
             e.printStackTrace()
             val errorMessage = when {
                 e.message?.contains("timeout", ignoreCase = true) == true -> "Connection timed out. Please try again."
@@ -68,5 +70,11 @@ class GoalEntryActivity : AppCompatActivity() {
             }
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.loadingLayout.visibility = if (isLoading) android.view.View.VISIBLE else android.view.View.GONE
+        binding.btnSubmitGoal.isEnabled = !isLoading
+        binding.etGoal.isEnabled = !isLoading
     }
 }
