@@ -60,7 +60,13 @@ class GoalEntryActivity : AppCompatActivity() {
             Toast.makeText(this, "Goal created successfully!", Toast.LENGTH_SHORT).show()
             finish()
         } catch (e: Exception) {
-            Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
+            val errorMessage = when {
+                e.message?.contains("timeout", ignoreCase = true) == true -> "Connection timed out. Please try again."
+                e.message?.contains("401") == true -> "Invalid API Key. Please check your configuration."
+                else -> "Failed to generate roadmap: ${e.message}"
+            }
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
         }
     }
 }

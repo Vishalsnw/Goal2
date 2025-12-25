@@ -19,14 +19,27 @@ class DashboardActivity : AppCompatActivity() {
         db = GoalGuruDatabase.getDatabase(this)
 
         lifecycleScope.launch {
-            val prefs = db.preferencesDao().getPreferencesSync()
-            if (prefs != null) {
-                binding.tvTotalTasks.text = "Total: ${prefs.totalTasks}"
-                binding.tvCompletedTasks.text = "Completed: ${prefs.completedTasks}"
-                val percentage = if (prefs.totalTasks > 0) (prefs.completedTasks * 100) / prefs.totalTasks else 0
+            val latestGoal = db.goalDao().getLatestGoal()
+            if (latestGoal != null) {
+                val total = db.taskDao().getTotalTaskCount(latestGoal.id)
+                val completed = db.taskDao().getCompletedTaskCount(latestGoal.id)
+                
+                binding.tvTotalTasks.text = "Total: $total"
+                binding.tvCompletedTasks.text = "Completed: $completed"
+                val percentage = if (total > 0) (completed * 100) / total else 0
                 binding.tvCompletionPercentage.text = "Progress: $percentage%"
-                binding.tvCurrentStreak.text = "Current Streak: ${prefs.currentStreak}"
-                binding.tvBestStreak.text = "Best Streak: ${prefs.bestStreak}"
+                
+                val prefs = db.preferencesDao().getPreferencesSync()
+                if (prefs != null) {
+                    binding.tvCurrentStreak.text = "Current Streak: ${prefs.currentStreak}"
+                    binding.tvBestStreak.text = "Best Streak: ${prefs.bestStreak}"
+                }
+            } else {
+                binding.tvTotalTasks.text = "Total: 0"
+                binding.tvCompletedTasks.text = "Completed: 0"
+                binding.tvCompletionPercentage.text = "Progress: 0%"
+                binding.tvCurrentStreak.text = "Current Streak: 0"
+                binding.tvBestStreak.text = "Best Streak: 0"
             }
         }
     }

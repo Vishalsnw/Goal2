@@ -53,7 +53,7 @@ class AIService(private val apiKey: String) {
             return gson.fromJson(jsonObject, Roadmap::class.java)
         } catch (e: Exception) {
             e.printStackTrace()
-            return createFallbackRoadmap(goal, duration)
+            throw e // Rethrow to let the UI handle the error instead of falling back
         }
     }
 

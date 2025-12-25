@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.goalguru.data.GoalGuruDatabase
+import com.goalguru.data.UserPreferences
 import com.goalguru.databinding.ActivityDailyTaskBinding
 import kotlinx.coroutines.launch
 
@@ -29,6 +30,7 @@ class DailyTaskActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         val updatedTask = task.copy(isCompleted = true, completedAt = System.currentTimeMillis())
                         db.taskDao().update(updatedTask)
+                        updatePreferencesAfterTask()
                         Toast.makeText(this@DailyTaskActivity, "Task completed!", Toast.LENGTH_SHORT).show()
                         finish()
                     }
@@ -43,8 +45,27 @@ class DailyTaskActivity : AppCompatActivity() {
                 }
             } else {
                 binding.tvTaskTitle.text = "No tasks today!"
-                Toast.makeText(this@DailyTaskActivity, "All tasks completed!", Toast.LENGTH_SHORT).show()
+                binding.tvTaskDescription.text = "Click 'New Goal' to start a journey."
+                binding.btnComplete.isEnabled = false
+                binding.btnSkip.isEnabled = false
             }
+        }
+    }
+
+    private fun updatePreferencesAfterTask() {
+        lifecycleScope.launch {
+            val latestGoal = db.goalDao().getLatestGoal() ?: return@launch
+            val prefs = db.preferencesDao().getPreferencesSync() ?: UserPreferences()
+            
+            val total = db.taskDao().getTotalTaskCount(latestGoal.id)
+            val completed = db.taskDao().getCompletedTaskCount(latestGoal.id)
+            
+            val updatedPrefs = prefs.copy(
+                totalTasks = total,
+                completedTasks = completed,
+                currentStreak = if (completed > 0) prefs.currentStreak + 1 else prefs.currentStreak
+            )
+            db.preferencesDao().update(updatedPrefs)
         }
     }
 }
