@@ -105,6 +105,9 @@ class AIService(private val apiKey: String) {
                 )
             )
         }
-        return Roadmap(dayList)
+        return Roadmap(
+            estimatedDays = days,
+            days = dayList
+        )
     }
 }
