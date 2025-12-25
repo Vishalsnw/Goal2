@@ -20,13 +20,6 @@ class MainActivity : AppCompatActivity() {
 
         db = GoalGuruDatabase.getDatabase(this)
 
-        lifecycleScope.launch {
-            val prefs = db.preferencesDao().getPreferencesSync()
-            if (prefs == null) {
-                db.preferencesDao().insert(UserPreferences())
-            }
-        }
-
         binding.btnNewGoal.setOnClickListener {
             startActivity(Intent(this, GoalEntryActivity::class.java))
         }

@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.goalguru.data.GoalGuruDatabase
 import com.goalguru.databinding.ActivitySplashBinding
+import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,9 +16,18 @@ class SplashActivity : AppCompatActivity() {
         val binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val db = GoalGuruDatabase.getDatabase(this)
+
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            lifecycleScope.launch {
+                val prefs = db.preferencesDao().getPreferencesSync()
+                if (prefs == null || !prefs.isOnboardingCompleted) {
+                    startActivity(Intent(this@SplashActivity, OnboardingActivity::class.java))
+                } else {
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                }
+                finish()
+            }
         }, 2000)
     }
 }

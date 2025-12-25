@@ -44,6 +44,10 @@
             android:name=".ui.SettingsActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.OnboardingActivity"
+            android:exported="false" />
+
         <service
             android:name=".service.GoalGuruFirebaseService"
             android:exported="false">
