@@ -30,7 +30,6 @@ class SettingsActivity : AppCompatActivity() {
                 val prefs = db.preferencesDao().getPreferencesSync()
                 if (prefs != null) {
                     val updated = prefs.copy(
-                        roastLevel = binding.spinnerRoastLevel.selectedItem.toString(),
                         language = binding.spinnerLanguage.selectedItem.toString(),
                         gender = binding.spinnerGender.selectedItem.toString(),
                         theme = binding.spinnerTheme.selectedItem.toString(),

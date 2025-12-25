@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         db = GoalGuruDatabase.getDatabase(this)
 
+        requestNotificationPermission()
+
         binding.btnNewGoal.setOnClickListener {
             startActivity(Intent(this, GoalEntryActivity::class.java))
         }
@@ -34,6 +36,22 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
+        }
+    }
+
+    private fun requestNotificationPermission() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            if (androidx.core.content.ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) != android.content.pm.PackageManager.PERMISSION_GRANTED
+            ) {
+                androidx.core.app.ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    101
+                )
+            }
         }
     }
 }

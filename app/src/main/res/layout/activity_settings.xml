@@ -20,20 +20,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/roast_level"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
-
-        <Spinner
-            android:id="@+id/spinner_roast_level"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/roast_levels"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/language"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
@@ -44,6 +30,27 @@
             android:layout_height="wrap_content"
             android:entries="@array/languages"
             android:layout_marginBottom="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/roast_level"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <Spinner
+                android:id="@+id/spinner_roast_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/roast_levels"
+                android:layout_marginBottom="16dp" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

@@ -64,21 +64,27 @@ class AIService(private val apiKey: String) {
 
     suspend fun generateRoastMessage(
         userPreference: String,
-        roastLevel: String,
+        gender: String,
+        age: Int,
         language: String,
         taskTitle: String
     ): String {
+        val roastLevel = when {
+            age > 40 -> "EXTRA_SPICY"
+            age < 18 -> "MILD"
+            else -> "SPICY"
+        }
         val roastPrompt = when {
             roastLevel == "EXTRA_SPICY" && language == "HINDI" -> 
-                "Generate an extra spicy Hindi roast message about not completing the task: '$taskTitle'. Be funny and motivating."
+                "Generate an extra spicy Hindi roast message for a $age year old $gender about not completing the task: '$taskTitle'. Be culturally aware and witty."
             roastLevel == "SPICY" && language == "HINDI" ->
-                "Generate a spicy Hindi motivational roast about the incomplete task: '$taskTitle'."
+                "Generate a spicy Hindi motivational roast for a $age year old $gender about the incomplete task: '$taskTitle'."
             roastLevel == "MILD" && language == "HINDI" ->
-                "Generate a mild Hindi reminder to complete the task: '$taskTitle'."
+                "Generate a mild Hindi reminder for a young user about the task: '$taskTitle'."
             roastLevel == "EXTRA_SPICY" ->
-                "Generate an extra spicy English roast message about procrastinating on: '$taskTitle'. Be funny!"
+                "Generate an extra spicy English roast message for a $age year old $gender procrastinating on: '$taskTitle'. Use cultural context."
             roastLevel == "SPICY" ->
-                "Generate a spicy English motivational message about: '$taskTitle'."
+                "Generate a spicy English motivational message for a $age year old $gender about: '$taskTitle'."
             else ->
                 "Remind the user to complete: '$taskTitle'."
         }
