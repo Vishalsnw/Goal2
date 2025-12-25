@@ -46,4 +46,16 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_roast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Roast message"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textColor="#D32F2F"
+        android:gravity="center"
+        android:visibility="gone" />
+
 </LinearLayout>
