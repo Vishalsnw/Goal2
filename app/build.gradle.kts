@@ -110,6 +110,9 @@ dependencies {
     // Preferences
     implementation("androidx.preference:preference-ktx:1.2.1")
     
+    // Animations
+    implementation("com.airbnb.android:lottie:6.0.0")
+    
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

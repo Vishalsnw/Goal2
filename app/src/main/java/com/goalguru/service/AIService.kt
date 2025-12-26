@@ -20,9 +20,8 @@ class AIService(private val apiKey: String) {
         val prompt = """
             $personalityContext
             Goal: "$goal"
-            1. Estimate how many days (1-90) it takes to achieve this.
-            2. Create a daily roadmap for that duration.
-            Output ONLY raw JSON.
+            
+            IMPORTANT: Respond with ONLY a valid JSON object, no markdown, no extra text.
             {
                 "estimatedDays": 30,
                 "days": [
@@ -34,6 +33,10 @@ class AIService(private val apiKey: String) {
                     }
                 ]
             }
+            
+            1. Estimate how many days (1-90) it takes to achieve this goal.
+            2. Create a daily roadmap for that duration with realistic tasks.
+            3. Response MUST be valid JSON only.
         """.trimIndent()
 
         val request = ChatCompletionRequest(
@@ -44,40 +47,45 @@ class AIService(private val apiKey: String) {
 
         try {
             val response = api.generateRoadmap(request, "Bearer $apiKey")
-            var content = response.choices[0].message.content
+            var content = response.choices[0].message.content.trim()
             
-            // Clean up JSON response with multiple strategies
-            if (content.contains("```json")) {
-                content = content.substringAfter("```json").substringBeforeLast("```").trim()
-            } else if (content.contains("```")) {
-                content = content.substringAfter("```").substringBeforeLast("```").trim()
+            // Remove markdown code blocks
+            content = when {
+                content.contains("```json") -> content.substringAfter("```json").substringBeforeLast("```").trim()
+                content.contains("```") -> content.substringAfter("```").substringBeforeLast("```").trim()
+                else -> content
             }
             
-            // Remove any leading/trailing markdown or extra text
-            content = content.trim()
-            if (content.startsWith("json")) {
-                content = content.substring(4).trim()
-            }
-            if (content.endsWith("json")) {
-                content = content.substring(0, content.length - 4).trim()
-            }
+            // Remove "json" text if present
+            if (content.startsWith("json")) content = content.substring(4).trim()
+            if (content.endsWith("json")) content = content.substring(0, content.length - 4).trim()
             
-            // Extract JSON object if there's surrounding text
+            // Extract JSON object
             val jsonStart = content.indexOf('{')
             val jsonEnd = content.lastIndexOf('}')
-            if (jsonStart >= 0 && jsonEnd > jsonStart) {
-                content = content.substring(jsonStart, jsonEnd + 1)
+            if (jsonStart < 0 || jsonEnd <= jsonStart) {
+                throw Exception("No valid JSON found in response: ${content.take(200)}")
             }
+            content = content.substring(jsonStart, jsonEnd + 1).trim()
             
             try {
                 val jsonObject = JsonParser.parseString(content).asJsonObject
-                return gson.fromJson(jsonObject, Roadmap::class.java)
+                val roadmap = gson.fromJson(jsonObject, Roadmap::class.java)
+                
+                // Validate roadmap
+                if (roadmap.days.isEmpty()) {
+                    return createFallbackRoadmap(goal, roadmap.estimatedDays.coerceIn(1, 90))
+                }
+                return roadmap
             } catch (jsonError: Exception) {
-                throw Exception("Failed to parse AI response as JSON. Response: ${content.take(300)}", jsonError)
+                // Fallback to generic roadmap
+                val estimatedDays = extractEstimatedDays(content)
+                return createFallbackRoadmap(goal, estimatedDays)
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            throw e
+            // Final fallback
+            return createFallbackRoadmap(goal, 30)
         }
     }
 
@@ -123,9 +131,19 @@ class AIService(private val apiKey: String) {
         }
     }
 
+    private fun extractEstimatedDays(content: String): Int {
+        return try {
+            val regex = """"estimatedDays"\s*:\s*(\d+)""".toRegex()
+            val match = regex.find(content)
+            match?.groupValues?.get(1)?.toIntOrNull()?.coerceIn(1, 90) ?: 30
+        } catch (e: Exception) {
+            30
+        }
+    }
+
     private fun createFallbackRoadmap(goal: String, days: Int): Roadmap {
         val dayList = mutableListOf<RoadmapDay>()
-        repeat(days) { i ->
+        repeat(days.coerceIn(1, 90)) { i ->
             dayList.add(
                 RoadmapDay(
                     day = i + 1,
@@ -136,7 +154,7 @@ class AIService(private val apiKey: String) {
             )
         }
         return Roadmap(
-            estimatedDays = days,
+            estimatedDays = days.coerceIn(1, 90),
             days = dayList
         )
     }
