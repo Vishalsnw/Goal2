@@ -14,29 +14,31 @@ class AIService(private val apiKey: String) {
 
     suspend fun generateGoalRoadmap(goal: String, userProfile: String? = null): Roadmap {
         val personalityContext = if (userProfile != null) {
-            "User Profile: $userProfile. Use this to provide culturally aware, friendly, and slightly sarcastic guidance. Use emojis. Be like an experienced human mentor, not a robot."
+            "User Profile: $userProfile. Be culturally aware and provide friendly, expert guidance."
         } else ""
 
         val prompt = """
             $personalityContext
             Goal: "$goal"
             
-            IMPORTANT: Respond with ONLY a valid JSON object, no markdown, no extra text.
+            Create a step-by-step daily roadmap to achieve this goal.
+            Respond ONLY with this exact JSON structure (no markdown, no extra text):
+            
             {
                 "estimatedDays": 30,
                 "days": [
-                    {
-                        "day": 1,
-                        "title": "Title",
-                        "description": "Task",
-                        "tips": ["Tip"]
-                    }
+                    {"day": 1, "title": "Task Title", "description": "Specific action to take", "tips": ["Tip 1", "Tip 2"]},
+                    {"day": 2, "title": "Task Title", "description": "Specific action to take", "tips": ["Tip 1", "Tip 2"]}
                 ]
             }
             
-            1. Estimate how many days (1-90) it takes to achieve this goal.
-            2. Create a daily roadmap for that duration with realistic tasks.
-            3. Response MUST be valid JSON only.
+            Requirements:
+            1. Estimate days needed: 5-90 days
+            2. Create realistic, actionable daily tasks
+            3. Each day must have a specific title and description related to achieving the goal
+            4. Include 1-2 practical tips per day
+            5. Return ONLY valid JSON, nothing else
+            6. Do NOT use markdown code blocks
         """.trimIndent()
 
         val request = ChatCompletionRequest(
@@ -96,38 +98,26 @@ class AIService(private val apiKey: String) {
         language: String,
         taskTitle: String
     ): String {
-        val roastLevel = when {
-            age > 40 -> "EXTRA_SPICY"
-            age < 18 -> "MILD"
-            else -> "SPICY"
-        }
         val roastPrompt = when {
-            roastLevel == "EXTRA_SPICY" && language == "HINDI" -> 
-                "Generate an extra spicy Hindi roast message for a $age year old $gender about not completing the task: '$taskTitle'. Be culturally aware and witty."
-            roastLevel == "SPICY" && language == "HINDI" ->
-                "Generate a spicy Hindi motivational roast for a $age year old $gender about the incomplete task: '$taskTitle'."
-            roastLevel == "MILD" && language == "HINDI" ->
-                "Generate a mild Hindi reminder for a young user about the task: '$taskTitle'."
-            roastLevel == "EXTRA_SPICY" ->
-                "Generate an extra spicy English roast message for a $age year old $gender procrastinating on: '$taskTitle'. Use cultural context."
-            roastLevel == "SPICY" ->
-                "Generate a spicy English motivational message for a $age year old $gender about: '$taskTitle'."
+            language == "HINDI" -> 
+                "Generate a motivational message in Hindi for a $age year old to complete this specific task: '$taskTitle'. Make it encouraging and specific to the task. Max 100 words."
             else ->
-                "Remind the user to complete: '$taskTitle'."
+                "Generate a short motivational message for a $age year old to complete this specific task: '$taskTitle'. Be specific about why this task matters. Max 100 words."
         }
 
         val request = ChatCompletionRequest(
             messages = listOf(
                 ChatMessage("user", roastPrompt)
             ),
-            max_tokens = 200
+            max_tokens = 150
         )
 
         return try {
             val response = api.generateRoadmap(request, "Bearer $apiKey")
-            response.choices[0].message.content
+            val message = response.choices[0].message.content.trim()
+            if (message.isEmpty()) "Time to complete: $taskTitle" else message
         } catch (e: Exception) {
-            "Hey! Don't forget to complete: $taskTitle"
+            "Time to complete: $taskTitle"
         }
     }
 

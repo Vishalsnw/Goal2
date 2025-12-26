@@ -1,10 +1,12 @@
 package com.goalguru.ui
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.goalguru.Config
+import com.goalguru.R
 import com.goalguru.data.Goal
 import com.goalguru.data.GoalGuruDatabase
 import com.goalguru.data.Task
@@ -86,6 +88,12 @@ class GoalEntryActivity : AppCompatActivity() {
 
     private fun setLoading(isLoading: Boolean) {
         binding.loadingLayout.visibility = if (isLoading) android.view.View.VISIBLE else android.view.View.GONE
+        if (isLoading) {
+            val rotation = AnimationUtils.loadAnimation(this, R.anim.rotate_3d)
+            binding.loadingCircle.startAnimation(rotation)
+        } else {
+            binding.loadingCircle.clearAnimation()
+        }
         binding.btnSubmitGoal.isEnabled = !isLoading
         binding.etGoal.isEnabled = !isLoading
     }
