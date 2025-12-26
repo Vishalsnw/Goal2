@@ -4,21 +4,19 @@
     android:height="200dp"
     android:viewportWidth="200"
     android:viewportHeight="200">
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="60"
-        android:fillColor="@android:color/transparent"
+    
+    <path
+        android:pathData="M 100,40 A 60,60 0 1,1 100,160 A 60,60 0 1,1 100,40"
         android:strokeColor="#1F6EF5"
         android:strokeWidth="8"
-        android:strokeDasharray="188"
-        android:strokeDashoffset="0" />
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="80"
         android:fillColor="@android:color/transparent"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    
+    <path
+        android:pathData="M 100,20 A 80,80 0 1,1 100,180 A 80,80 0 1,1 100,20"
         android:strokeColor="#A2D5FF"
         android:strokeWidth="4"
+        android:fillColor="@android:color/transparent"
         android:alpha="0.5" />
 </vector>
