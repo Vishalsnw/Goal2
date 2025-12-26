@@ -9,6 +9,7 @@ import com.goalguru.data.UserPreferences
 import com.goalguru.Config
 import com.goalguru.databinding.ActivityDailyTaskBinding
 import com.goalguru.service.AIService
+import com.goalguru.service.TaskReminderService
 import kotlinx.coroutines.launch
 
 class DailyTaskActivity : AppCompatActivity() {
@@ -88,6 +89,13 @@ class DailyTaskActivity : AppCompatActivity() {
                 )
                 binding.tvRoast.text = roast
                 binding.tvRoast.visibility = android.view.View.VISIBLE
+                
+                // Send notification to notification bar
+                TaskReminderService.sendRoastNotification(
+                    this@DailyTaskActivity,
+                    "Time for your task!",
+                    roast
+                )
             }
         }
     }

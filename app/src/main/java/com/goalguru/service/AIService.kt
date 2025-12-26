@@ -46,23 +46,38 @@ class AIService(private val apiKey: String) {
             val response = api.generateRoadmap(request, "Bearer $apiKey")
             var content = response.choices[0].message.content
             
-            // Clean up JSON response if AI included markdown blocks
+            // Clean up JSON response with multiple strategies
             if (content.contains("```json")) {
-                content = content.substringAfter("```json").substringBeforeLast("```")
+                content = content.substringAfter("```json").substringBeforeLast("```").trim()
             } else if (content.contains("```")) {
-                content = content.substringAfter("```").substringBeforeLast("```")
+                content = content.substringAfter("```").substringBeforeLast("```").trim()
             }
+            
+            // Remove any leading/trailing markdown or extra text
             content = content.trim()
+            if (content.startsWith("json")) {
+                content = content.substring(4).trim()
+            }
+            if (content.endsWith("json")) {
+                content = content.substring(0, content.length - 4).trim()
+            }
+            
+            // Extract JSON object if there's surrounding text
+            val jsonStart = content.indexOf('{')
+            val jsonEnd = content.lastIndexOf('}')
+            if (jsonStart >= 0 && jsonEnd > jsonStart) {
+                content = content.substring(jsonStart, jsonEnd + 1)
+            }
             
             try {
                 val jsonObject = JsonParser.parseString(content).asJsonObject
                 return gson.fromJson(jsonObject, Roadmap::class.java)
             } catch (jsonError: Exception) {
-                throw Exception("Failed to parse AI response as JSON. Response: ${content.take(200)}", jsonError)
+                throw Exception("Failed to parse AI response as JSON. Response: ${content.take(300)}", jsonError)
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            throw e // Rethrow to let the UI handle the error instead of falling back
+            throw e
         }
     }
 
