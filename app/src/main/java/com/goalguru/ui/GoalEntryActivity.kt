@@ -3,6 +3,7 @@ package com.goalguru.ui
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.goalguru.Config
@@ -76,7 +77,13 @@ class GoalEntryActivity : AppCompatActivity() {
             e.printStackTrace()
             val errorMessage = e.message ?: "Unknown error occurred"
             android.util.Log.e("GoalEntryActivity", "Full error trace: $errorMessage", e)
-            Toast.makeText(this, "ERROR: $errorMessage", Toast.LENGTH_LONG).show()
+            
+            // Show error in a dialog so user can see the full message
+            AlertDialog.Builder(this)
+                .setTitle("Error Generating Roadmap")
+                .setMessage(errorMessage)
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                .show()
         }
     }
 
