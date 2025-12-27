@@ -80,59 +80,68 @@ class AIService(private val apiKey: String) {
         
         android.util.Log.d("AIService", "Cleaned JSON: $content")
         
+        // Try to parse the complete JSON first
+        var daysList = mutableListOf<RoadmapDay>()
+        var estimatedDays = 30
+        
         try {
             val jsonObject = JsonParser.parseString(content).asJsonObject
             
             // Extract estimated days
-            val estimatedDays = try {
+            estimatedDays = try {
                 jsonObject.get("estimatedDays")?.asInt ?: 30
             } catch (e: Exception) {
-                android.util.Log.w("AIService", "Could not parse estimatedDays, using default 30")
                 30
             }
             
             // Extract days array
             val daysArray = try {
-                jsonObject.getAsJsonArray("days") ?: return createFallbackRoadmap(goal, estimatedDays)
+                jsonObject.getAsJsonArray("days") ?: emptyList<Any>()
             } catch (e: Exception) {
-                android.util.Log.w("AIService", "No 'days' array found in JSON: ${e.message}")
-                return createFallbackRoadmap(goal, estimatedDays)
+                emptyList<Any>()
             }
             
-            // Parse each day
-            val daysList = mutableListOf<RoadmapDay>()
-            for (dayElement in daysArray) {
-                try {
-                    val dayObj = dayElement.asJsonObject
-                    val day = dayObj.get("day")?.asInt ?: daysList.size + 1
-                    val title = dayObj.get("title")?.asString ?: "Task ${daysList.size + 1}"
-                    val description = dayObj.get("description")?.asString ?: "Complete this step"
-                    
-                    val tips = try {
-                        dayObj.getAsJsonArray("tips")?.map { it.asString } ?: listOf("Keep going")
+            // Parse each day from array
+            if (daysArray.isNotEmpty()) {
+                for (dayElement in daysArray) {
+                    try {
+                        val dayObj = dayElement.asJsonObject
+                        val day = dayObj.get("day")?.asInt ?: daysList.size + 1
+                        val title = dayObj.get("title")?.asString ?: "Task ${daysList.size + 1}"
+                        val description = dayObj.get("description")?.asString ?: "Complete this step"
+                        
+                        val tips = try {
+                            dayObj.getAsJsonArray("tips")?.map { it.asString } ?: listOf("Keep going")
+                        } catch (e: Exception) {
+                            listOf("Keep going")
+                        }
+                        
+                        daysList.add(RoadmapDay(day = day, title = title, description = description, tips = tips))
                     } catch (e: Exception) {
-                        listOf("Keep going")
+                        continue
                     }
-                    
-                    daysList.add(RoadmapDay(day = day, title = title, description = description, tips = tips))
-                } catch (e: Exception) {
-                    android.util.Log.w("AIService", "Could not parse day element: $dayElement\nError: ${e.message}")
-                    continue
                 }
             }
+        } catch (e: Exception) {
+            android.util.Log.w("AIService", "Full JSON parsing failed (likely truncated): ${e.message}")
+            // JSON is likely truncated - try to extract days manually with regex
+            daysList = extractDaysFromMalformedJson(content)
             
             if (daysList.isEmpty()) {
-                android.util.Log.e("AIService", "ERROR: No days parsed from array with ${daysArray.size()} elements")
-                throw Exception("ERROR: API returned 0 parseable days from $daysArray")
+                android.util.Log.w("AIService", "Regex extraction failed, will use fallback")
             }
-            
-            val roadmap = Roadmap(estimatedDays = estimatedDays, days = daysList)
-            android.util.Log.d("AIService", "SUCCESS: Generated roadmap with ${roadmap.days.size} days")
-            return roadmap
-        } catch (jsonError: Exception) {
-            android.util.Log.e("AIService", "ERROR: JSON parsing failed: ${jsonError.message}\nContent: $content", jsonError)
-            throw Exception("ERROR: Failed to parse roadmap JSON:\n${jsonError.message}\n\nRaw response:\n${content.take(300)}")
         }
+        
+        // If we got some days, return them
+        if (daysList.isNotEmpty()) {
+            val roadmap = Roadmap(estimatedDays = estimatedDays, days = daysList)
+            android.util.Log.d("AIService", "SUCCESS: Generated roadmap with ${roadmap.days.size} days (parsed from ${if (daysList.size < estimatedDays) "truncated" else "complete"} response)")
+            return roadmap
+        }
+        
+        // If we still have no days, return fallback
+        android.util.Log.w("AIService", "Could not parse any days from response, using fallback roadmap")
+        return createFallbackRoadmap(goal, estimatedDays)
     }
 
     suspend fun generateRoastMessage(
@@ -173,6 +182,27 @@ class AIService(private val apiKey: String) {
         } catch (e: Exception) {
             30
         }
+    }
+
+    private fun extractDaysFromMalformedJson(content: String): MutableList<RoadmapDay> {
+        val daysList = mutableListOf<RoadmapDay>()
+        
+        // Regex to find day objects: {"day": N, "title": "...", "description": "...", ...}
+        val dayPattern = """"day"\s*:\s*(\d+)\s*,\s*"title"\s*:\s*"([^"]*)"(?:\s*,\s*"description"\s*:\s*"([^"]*)")?""".toRegex()
+        
+        for (match in dayPattern.findAll(content)) {
+            try {
+                val day = match.groupValues[1].toInt()
+                val title = match.groupValues[2]
+                val description = match.groupValues.getOrNull(3) ?: "Complete this step"
+                
+                daysList.add(RoadmapDay(day = day, title = title, description = description, tips = listOf("Keep going")))
+            } catch (e: Exception) {
+                continue
+            }
+        }
+        
+        return daysList
     }
 
     private fun createFallbackRoadmap(goal: String, days: Int): Roadmap {
