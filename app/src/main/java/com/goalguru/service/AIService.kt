@@ -96,26 +96,27 @@ class AIService(private val apiKey: String) {
             
             // Extract days array
             val daysArray = try {
-                jsonObject.getAsJsonArray("days") ?: emptyList<Any>()
+                jsonObject.getAsJsonArray("days")
             } catch (e: Exception) {
-                emptyList<Any>()
+                null
             }
             
             // Parse each day from array
-            if (daysArray.size() > 0) {
-                for (dayElement in daysArray) {
+            if (daysArray != null && daysArray.size() > 0) {
+                for (i in 0 until daysArray.size()) {
                     try {
-                        val dayObj = dayElement.getAsJsonObject()
-                        val day = dayObj.get("day")?.getAsInt() ?: daysList.size + 1
-                        val title = dayObj.get("title")?.getAsString() ?: "Task ${daysList.size + 1}"
-                        val description = dayObj.get("description")?.getAsString() ?: "Complete this step"
+                        val dayElement = daysArray.get(i)
+                        val dayObj = dayElement.asJsonObject
+                        val day = dayObj.get("day")?.asInt ?: daysList.size + 1
+                        val title = dayObj.get("title")?.asString ?: "Task ${daysList.size + 1}"
+                        val description = dayObj.get("description")?.asString ?: "Complete this step"
                         
                         val tips = try {
                             val tipsArray = dayObj.getAsJsonArray("tips")
                             if (tipsArray != null) {
                                 val tipsList = mutableListOf<String>()
-                                for (tipElement in tipsArray) {
-                                    tipsList.add(tipElement.getAsString())
+                                for (j in 0 until tipsArray.size()) {
+                                    tipsList.add(tipsArray.get(j).asString)
                                 }
                                 tipsList
                             } else {
