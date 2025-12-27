@@ -102,16 +102,25 @@ class AIService(private val apiKey: String) {
             }
             
             // Parse each day from array
-            if (daysArray.isNotEmpty()) {
+            if (daysArray.size() > 0) {
                 for (dayElement in daysArray) {
                     try {
-                        val dayObj = dayElement.asJsonObject
-                        val day = dayObj.get("day")?.asInt ?: daysList.size + 1
-                        val title = dayObj.get("title")?.asString ?: "Task ${daysList.size + 1}"
-                        val description = dayObj.get("description")?.asString ?: "Complete this step"
+                        val dayObj = dayElement.getAsJsonObject()
+                        val day = dayObj.get("day")?.getAsInt() ?: daysList.size + 1
+                        val title = dayObj.get("title")?.getAsString() ?: "Task ${daysList.size + 1}"
+                        val description = dayObj.get("description")?.getAsString() ?: "Complete this step"
                         
                         val tips = try {
-                            dayObj.getAsJsonArray("tips")?.map { it.asString } ?: listOf("Keep going")
+                            val tipsArray = dayObj.getAsJsonArray("tips")
+                            if (tipsArray != null) {
+                                val tipsList = mutableListOf<String>()
+                                for (tipElement in tipsArray) {
+                                    tipsList.add(tipElement.getAsString())
+                                }
+                                tipsList
+                            } else {
+                                listOf("Keep going")
+                            }
                         } catch (e: Exception) {
                             listOf("Keep going")
                         }
