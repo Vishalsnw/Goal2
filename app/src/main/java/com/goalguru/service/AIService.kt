@@ -6,11 +6,17 @@ import com.goalguru.api.OpenRouterClient
 import com.goalguru.data.Roadmap
 import com.goalguru.data.RoadmapDay
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
+import com.google.gson.stream.JsonReader
+import java.io.StringReader
 
 class AIService(private val apiKey: String) {
     private val api = OpenRouterClient.create(apiKey)
-    private val gson = Gson()
+    private val gson = GsonBuilder()
+        .setLenient()
+        .serializeNulls()
+        .create()
 
     suspend fun generateGoalRoadmap(goal: String, userProfile: String? = null): Roadmap {
         val personalityContext = if (userProfile != null) {
@@ -76,19 +82,56 @@ class AIService(private val apiKey: String) {
         
         try {
             val jsonObject = JsonParser.parseString(content).asJsonObject
-            val roadmap = gson.fromJson(jsonObject, Roadmap::class.java)
             
-            // Validate roadmap has tasks
-            if (roadmap.days.isEmpty()) {
-                android.util.Log.e("AIService", "ERROR: Roadmap has no days! Parsed object: $roadmap")
-                throw Exception("ERROR: API returned roadmap with no days")
+            // Extract estimated days
+            val estimatedDays = try {
+                jsonObject.get("estimatedDays")?.asInt ?: 30
+            } catch (e: Exception) {
+                android.util.Log.w("AIService", "Could not parse estimatedDays, using default 30")
+                30
             }
             
+            // Extract days array
+            val daysArray = try {
+                jsonObject.getAsJsonArray("days") ?: return createFallbackRoadmap(goal, estimatedDays)
+            } catch (e: Exception) {
+                android.util.Log.w("AIService", "No 'days' array found in JSON: ${e.message}")
+                return createFallbackRoadmap(goal, estimatedDays)
+            }
+            
+            // Parse each day
+            val daysList = mutableListOf<RoadmapDay>()
+            for (dayElement in daysArray) {
+                try {
+                    val dayObj = dayElement.asJsonObject
+                    val day = dayObj.get("day")?.asInt ?: daysList.size + 1
+                    val title = dayObj.get("title")?.asString ?: "Task ${daysList.size + 1}"
+                    val description = dayObj.get("description")?.asString ?: "Complete this step"
+                    
+                    val tips = try {
+                        dayObj.getAsJsonArray("tips")?.map { it.asString } ?: listOf("Keep going")
+                    } catch (e: Exception) {
+                        listOf("Keep going")
+                    }
+                    
+                    daysList.add(RoadmapDay(day = day, title = title, description = description, tips = tips))
+                } catch (e: Exception) {
+                    android.util.Log.w("AIService", "Could not parse day element: $dayElement\nError: ${e.message}")
+                    continue
+                }
+            }
+            
+            if (daysList.isEmpty()) {
+                android.util.Log.e("AIService", "ERROR: No days parsed from array with ${daysArray.size()} elements")
+                throw Exception("ERROR: API returned 0 parseable days from $daysArray")
+            }
+            
+            val roadmap = Roadmap(estimatedDays = estimatedDays, days = daysList)
             android.util.Log.d("AIService", "SUCCESS: Generated roadmap with ${roadmap.days.size} days")
             return roadmap
         } catch (jsonError: Exception) {
             android.util.Log.e("AIService", "ERROR: JSON parsing failed: ${jsonError.message}\nContent: $content", jsonError)
-            throw Exception("ERROR: Failed to parse roadmap JSON: ${jsonError.message}")
+            throw Exception("ERROR: Failed to parse roadmap JSON:\n${jsonError.message}\n\nRaw response:\n${content.take(300)}")
         }
     }
 
