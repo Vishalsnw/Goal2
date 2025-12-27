@@ -47,47 +47,48 @@ class AIService(private val apiKey: String) {
             )
         )
 
+        val response = api.generateRoadmap(request, "Bearer $apiKey")
+        var content = response.choices[0].message.content.trim()
+        
+        android.util.Log.d("AIService", "Raw API Response: $content")
+        
+        // Remove markdown code blocks
+        content = when {
+            content.contains("```json") -> content.substringAfter("```json").substringBeforeLast("```").trim()
+            content.contains("```") -> content.substringAfter("```").substringBeforeLast("```").trim()
+            else -> content
+        }
+        
+        // Remove "json" text if present
+        if (content.startsWith("json")) content = content.substring(4).trim()
+        if (content.endsWith("json")) content = content.substring(0, content.length - 4).trim()
+        
+        // Extract JSON object
+        val jsonStart = content.indexOf('{')
+        val jsonEnd = content.lastIndexOf('}')
+        if (jsonStart < 0 || jsonEnd <= jsonStart) {
+            android.util.Log.e("AIService", "ERROR: No valid JSON found in response. Content: ${content.take(500)}")
+            throw Exception("ERROR: No valid JSON found in response: ${content.take(500)}")
+        }
+        content = content.substring(jsonStart, jsonEnd + 1).trim()
+        
+        android.util.Log.d("AIService", "Cleaned JSON: $content")
+        
         try {
-            val response = api.generateRoadmap(request, "Bearer $apiKey")
-            var content = response.choices[0].message.content.trim()
+            val jsonObject = JsonParser.parseString(content).asJsonObject
+            val roadmap = gson.fromJson(jsonObject, Roadmap::class.java)
             
-            // Remove markdown code blocks
-            content = when {
-                content.contains("```json") -> content.substringAfter("```json").substringBeforeLast("```").trim()
-                content.contains("```") -> content.substringAfter("```").substringBeforeLast("```").trim()
-                else -> content
+            // Validate roadmap has tasks
+            if (roadmap.days.isEmpty()) {
+                android.util.Log.e("AIService", "ERROR: Roadmap has no days! Parsed object: $roadmap")
+                throw Exception("ERROR: API returned roadmap with no days")
             }
             
-            // Remove "json" text if present
-            if (content.startsWith("json")) content = content.substring(4).trim()
-            if (content.endsWith("json")) content = content.substring(0, content.length - 4).trim()
-            
-            // Extract JSON object
-            val jsonStart = content.indexOf('{')
-            val jsonEnd = content.lastIndexOf('}')
-            if (jsonStart < 0 || jsonEnd <= jsonStart) {
-                throw Exception("No valid JSON found in response: ${content.take(200)}")
-            }
-            content = content.substring(jsonStart, jsonEnd + 1).trim()
-            
-            try {
-                val jsonObject = JsonParser.parseString(content).asJsonObject
-                val roadmap = gson.fromJson(jsonObject, Roadmap::class.java)
-                
-                // Validate roadmap
-                if (roadmap.days.isEmpty()) {
-                    return createFallbackRoadmap(goal, roadmap.estimatedDays.coerceIn(1, 90))
-                }
-                return roadmap
-            } catch (jsonError: Exception) {
-                // Fallback to generic roadmap
-                val estimatedDays = extractEstimatedDays(content)
-                return createFallbackRoadmap(goal, estimatedDays)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            // Final fallback
-            return createFallbackRoadmap(goal, 30)
+            android.util.Log.d("AIService", "SUCCESS: Generated roadmap with ${roadmap.days.size} days")
+            return roadmap
+        } catch (jsonError: Exception) {
+            android.util.Log.e("AIService", "ERROR: JSON parsing failed: ${jsonError.message}\nContent: $content", jsonError)
+            throw Exception("ERROR: Failed to parse roadmap JSON: ${jsonError.message}")
         }
     }
 
