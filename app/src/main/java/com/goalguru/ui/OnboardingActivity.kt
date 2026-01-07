@@ -25,6 +25,7 @@ class OnboardingActivity : AppCompatActivity() {
             val name = binding.etName.text.toString().trim()
             val ageStr = binding.etAge.text.toString().trim()
             val country = binding.etCountry.text.toString().trim()
+            val language = if (binding.rgLanguage.checkedRadioButtonId == binding.rbHindi.id) "HINDI" else "ENGLISH"
             
             if (name.isEmpty() || ageStr.isEmpty() || country.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
@@ -44,6 +45,7 @@ class OnboardingActivity : AppCompatActivity() {
                     age = age,
                     gender = gender,
                     country = country,
+                    language = language,
                     isOnboardingCompleted = true
                 )
                 db.preferencesDao().insert(prefs)

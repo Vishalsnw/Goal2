@@ -78,6 +78,22 @@
                 android:hint="Which country are you from?" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preferred Language"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/rg_language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+            <RadioButton android:id="@+id/rb_english" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="English" android:checked="true" />
+            <RadioButton android:id="@+id/rb_hindi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hindi" />
+        </RadioGroup>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_finish_onboarding"
             android:layout_width="match_parent"

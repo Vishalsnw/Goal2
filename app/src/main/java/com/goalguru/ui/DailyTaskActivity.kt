@@ -80,8 +80,9 @@ class DailyTaskActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val prefs = db.preferencesDao().getPreferencesSync()
             if (prefs != null) {
+                android.util.Log.d("DailyTaskActivity", "Roasting in language: ${prefs.language}")
                 val roast = aiService.generateRoastMessage(
-                    userPreference = "Name: ${prefs.name}, Country: ${prefs.country}",
+                    userPreference = "Name: ${prefs.name}, Country: ${prefs.country}, Level: ${prefs.roastLevel}",
                     gender = prefs.gender,
                     age = prefs.age,
                     language = prefs.language,
