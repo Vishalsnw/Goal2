@@ -171,7 +171,13 @@ class AIService(private val apiKey: String) {
                 Max 20 words. Use Devnagari for Hindi parts if appropriate, or just Roman script.
                 """.trimIndent()
             else ->
-                "Generate a savage and funny roast/insult for a $age year old who hasn't completed their task: '$taskTitle'. The roast level is $userPreference. Be creative and mean in a funny way. Max 20 words."
+                """
+                Generate a savage, brutally honest, and funny roast for a $age year old who hasn't completed their task: '$taskTitle'. 
+                The roast level is $userPreference. 
+                Be creative, use modern slang, and don't be afraid to be mean in a hilarious way. 
+                Make the user feel like a total slacker for missing this. 
+                Max 20 words.
+                """.trimIndent()
         }
 
         val request = ChatCompletionRequest(
