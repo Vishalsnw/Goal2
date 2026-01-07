@@ -163,9 +163,15 @@ class AIService(private val apiKey: String) {
     ): String {
         val roastPrompt = when {
             language == "HINDI" -> 
-                "Generate a motivational message in Hindi for a $age year old to complete this specific task: '$taskTitle'. Make it encouraging and specific to the task. Max 100 words."
+                """
+                Generate a savage, humorous roast/insult in Hinglish (Hindi + English) for a $age year old who hasn't completed their task: '$taskTitle'. 
+                The roast level is $userPreference. 
+                Use street-style language like "Bhai tu lukkha hi marega" or "Abey saale". 
+                Be extremely funny and insulting but keep it to the task. 
+                Max 20 words. Use Devnagari for Hindi parts if appropriate, or just Roman script.
+                """.trimIndent()
             else ->
-                "Generate a short motivational message for a $age year old to complete this specific task: '$taskTitle'. Be specific about why this task matters. Max 100 words."
+                "Generate a savage and funny roast/insult for a $age year old who hasn't completed their task: '$taskTitle'. The roast level is $userPreference. Be creative and mean in a funny way. Max 20 words."
         }
 
         val request = ChatCompletionRequest(
