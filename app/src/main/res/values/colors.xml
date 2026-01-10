@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="primary">#FF6200EE</color>
-    <color name="primary_variant">#FF3700B3</color>
-    <color name="secondary">#FF03DAC5</color>
-    <color name="secondary_variant">#FF018786</color>
-    <color name="background">#FFFAFAFA</color>
-    <color name="surface">#FFFAFAFA</color>
-    <color name="error">#FFFF6B6B</color>
-    <color name="success">#FF4CAF50</color>
+    <!-- Modern Night Mode Aesthetic -->
+    <color name="primary">#8A2BE2</color> <!-- Blue Violet -->
+    <color name="primary_variant">#4B0082</color> <!-- Indigo -->
+    <color name="secondary">#00CED1</color> <!-- Dark Turquoise -->
+    <color name="secondary_variant">#008B8B</color> <!-- Dark Cyan -->
+    <color name="background">#0F0F1A</color> <!-- Deep Midnight -->
+    <color name="surface">#1A1A2E</color> <!-- Dark Surface -->
+    <color name="on_surface">#E0E0E0</color> <!-- Light Grey Text -->
+    <color name="card_background">#252545</color> <!-- Glass-like Card -->
+    <color name="error">#FF4D4D</color>
+    <color name="success">#00FA9A</color> <!-- Medium Spring Green -->
+    <color name="accent_gold">#FFD700</color> <!-- For Guru level -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>
