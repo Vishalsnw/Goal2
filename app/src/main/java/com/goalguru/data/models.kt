@@ -42,7 +42,11 @@ data class UserPreferences(
     val bestStreak: Int = 0,
     val totalTasks: Int = 0,
     val completedTasks: Int = 0,
-    val isOnboardingCompleted: Boolean = false
+    val isOnboardingCompleted: Boolean = false,
+    val xp: Int = 0,
+    val level: Int = 1,
+    val guruTitle: String = "Seeker",
+    val guruPoints: Int = 0
 )
 
 data class Roadmap(

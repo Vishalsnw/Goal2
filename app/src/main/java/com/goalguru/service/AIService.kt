@@ -47,7 +47,8 @@ class AIService(private val apiKey: String) {
             3. The roadmap must be high-quality: Include foundational learning, skill building, networking, and practical execution steps.
             4. Each day must have a unique, specific title and description.
             5. Include 1-2 practical expert tips per day.
-            6. Return ONLY valid JSON, nothing else.
+            6. SMART FORECASTING: Analyze potential failure points for this goal and include strategies to overcome them in the descriptions.
+            7. Return ONLY valid JSON, nothing else.
         """.trimIndent()
 
         val request = ChatCompletionRequest(
@@ -168,21 +169,28 @@ class AIService(private val apiKey: String) {
         val roastPrompt = when {
             language == "HINDI" -> 
                 """
-                Generate a savage, humorous roast/insult in Hinglish (Hindi + English) for a $age year old who hasn't completed their task: '$taskTitle'. 
-                The roast level is $userPreference. 
-                Use diverse, creative insults and modern Indian slang. 
-                AVOID repetitive words like "Abey", "Saale", or focusing too much on age.
-                Be witty and varied. Use references to laziness, procrastination, or funny consequences.
-                Max 20 words.
+                Act as a "GoalGuru" accountability partner. 
+                Task missed: '$taskTitle'. User profile: $age year old, $gender.
+                Roast level: $userPreference.
+                
+                If the roast level is EXTRA_SPICY, be a brutal but funny coach in Hinglish. 
+                If MILD, be a supportive but firm mentor.
+                
+                Diversity Requirement: Use creative insults, modern Indian slang, and references to their specific goal. 
+                AVOID "Abey", "Saale", or generic age insults. 
+                Keep it conversational and interactive.
+                Max 25 words.
                 """.trimIndent()
             else ->
                 """
-                Generate a savage, brutally honest, and funny roast for a person who hasn't completed their task: '$taskTitle'. 
-                The roast level is $userPreference. 
-                Be creative and diverse. AVOID being repetitive. Do not just focus on their age ($age).
-                Use modern slang, pop culture references, and witty humor.
-                Make the user feel the burn in a new way every time. 
-                Max 20 words.
+                Act as a "GoalGuru" accountability partner.
+                Task missed: '$taskTitle'.
+                Roast level: $userPreference.
+                
+                Be an interactive coach. If the user misses a task, analyze WHY (lazy, busy, distracted) based on the task type and call them out with witty, pop-culture-filled humor.
+                AVOID repetitiveness. Do not just focus on age. 
+                Make the user feel like their GoalGuru is watching and actually cares.
+                Max 25 words.
                 """.trimIndent()
         }
 

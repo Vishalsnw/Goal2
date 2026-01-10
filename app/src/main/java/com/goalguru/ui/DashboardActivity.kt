@@ -33,6 +33,11 @@ class DashboardActivity : AppCompatActivity() {
                 if (prefs != null) {
                     binding.tvCurrentStreak.text = "Current Streak: ${prefs.currentStreak}"
                     binding.tvBestStreak.text = "Best Streak: ${prefs.bestStreak}"
+                    
+                    // Display Guru RPG Stats
+                    binding.tvLevel.text = "Guru Level: ${prefs.level} (${prefs.guruTitle})"
+                    binding.tvXP.text = "XP: ${prefs.xp}"
+                    binding.tvGuruPoints.text = "Guru Points: ${prefs.guruPoints}"
                 }
             } else {
                 binding.tvTotalTasks.text = "Total: 0"
