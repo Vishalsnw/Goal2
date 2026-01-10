@@ -27,7 +27,7 @@ class AIService(private val apiKey: String) {
             $personalityContext
             Goal: "$goal"
             
-            Create a step-by-step daily roadmap to achieve this goal.
+            Create a highly realistic, professional, and comprehensive step-by-step daily roadmap to achieve this goal.
             Respond ONLY with this exact JSON structure (no markdown, no extra text):
             
             {
@@ -39,18 +39,20 @@ class AIService(private val apiKey: String) {
             }
             
             Requirements:
-            1. Estimate days needed: 5-90 days
-            2. Create realistic, actionable daily tasks
-            3. Each day must have a specific title and description related to achieving the goal
-            4. Include 1-2 practical tips per day
-            5. Return ONLY valid JSON, nothing else
-            6. Do NOT use markdown code blocks
+            1. Estimate days needed: Provide a realistic timeframe. For complex professional goals (like movie director), estimate 60-180 days. For simple goals, 7-30 days.
+            2. The roadmap must be high-quality: Include foundational learning, skill building, networking, and practical execution steps.
+            3. Create realistic, actionable daily tasks that actually lead to the result.
+            4. Each day must have a specific title and description related to achieving the goal.
+            5. Include 1-2 practical expert tips per day.
+            6. Return ONLY valid JSON, nothing else.
+            7. Do NOT use markdown code blocks.
         """.trimIndent()
 
         val request = ChatCompletionRequest(
             messages = listOf(
                 ChatMessage("user", prompt)
-            )
+            ),
+            max_tokens = 4000
         )
 
         val response = api.generateRoadmap(request, "Bearer $apiKey")
@@ -200,7 +202,7 @@ class AIService(private val apiKey: String) {
         return try {
             val regex = """"estimatedDays"\s*:\s*(\d+)""".toRegex()
             val match = regex.find(content)
-            match?.groupValues?.get(1)?.toIntOrNull()?.coerceIn(1, 90) ?: 30
+            match?.groupValues?.get(1)?.toIntOrNull()?.coerceIn(1, 365) ?: 30
         } catch (e: Exception) {
             30
         }
@@ -229,7 +231,7 @@ class AIService(private val apiKey: String) {
 
     private fun createFallbackRoadmap(goal: String, days: Int): Roadmap {
         val dayList = mutableListOf<RoadmapDay>()
-        repeat(days.coerceIn(1, 90)) { i ->
+        repeat(days.coerceIn(1, 365)) { i ->
             dayList.add(
                 RoadmapDay(
                     day = i + 1,
@@ -240,7 +242,7 @@ class AIService(private val apiKey: String) {
             )
         }
         return Roadmap(
-            estimatedDays = days.coerceIn(1, 90),
+            estimatedDays = days.coerceIn(1, 365),
             days = dayList
         )
     }
