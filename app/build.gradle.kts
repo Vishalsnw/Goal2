@@ -102,7 +102,7 @@ dependencies {
     
     // Firebase
     implementation("com.google.firebase:firebase-messaging:23.2.1")
-    implementation("com.google.firebase:firebase-analytics:21.3.0")
+    // implementation("com.google.firebase:firebase-analytics:21.3.0") // Remove duplicate or conflicting analytics
     
     // Charts
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
