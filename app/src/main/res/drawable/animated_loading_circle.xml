@@ -5,6 +5,7 @@
     android:viewportWidth="200"
     android:viewportHeight="200">
     
+    <!-- Using paths instead of unsupported circle attributes -->
     <path
         android:pathData="M 100,40 A 60,60 0 1,1 100,160 A 60,60 0 1,1 100,40"
         android:strokeColor="#1F6EF5"
