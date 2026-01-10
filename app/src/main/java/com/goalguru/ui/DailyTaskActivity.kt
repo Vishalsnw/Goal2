@@ -67,10 +67,31 @@ class DailyTaskActivity : AppCompatActivity() {
             val total = db.taskDao().getTotalTaskCount(latestGoal.id)
             val completed = db.taskDao().getCompletedTaskCount(latestGoal.id)
             
+            // RPG Logic: Earn XP and Level Up
+            val xpGained = 10
+            var newXp = prefs.xp + xpGained
+            var newLevel = prefs.level
+            var newTitle = prefs.guruTitle
+            
+            if (newXp >= newLevel * 100) {
+                newXp -= newLevel * 100
+                newLevel++
+                newTitle = when (newLevel) {
+                    in 1..5 -> "Seeker"
+                    in 6..10 -> "Acolyte"
+                    in 11..20 -> "Sage"
+                    else -> "Guru"
+                }
+            }
+
             val updatedPrefs = prefs.copy(
                 totalTasks = total,
                 completedTasks = completed,
-                currentStreak = if (completed > 0) prefs.currentStreak + 1 else prefs.currentStreak
+                currentStreak = if (completed > 0) prefs.currentStreak + 1 else prefs.currentStreak,
+                xp = newXp,
+                level = newLevel,
+                guruTitle = newTitle,
+                guruPoints = prefs.guruPoints + 1 // Earn 1 point per task
             )
             db.preferencesDao().update(updatedPrefs)
         }

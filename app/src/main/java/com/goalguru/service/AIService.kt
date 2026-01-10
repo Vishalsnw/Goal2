@@ -159,6 +159,28 @@ class AIService(private val apiKey: String) {
         return createFallbackRoadmap(goal, estimatedDays)
     }
 
+    suspend fun generateGlobalChallenge(): String {
+        val prompt = """
+            Act as a "GoalGuru" community leader. 
+            Generate a short, high-energy global daily challenge for all users.
+            Example: "The 5 AM Club - Wake up early and plan your day" or "Social Detox - 2 hours without phone".
+            Keep it actionable and inspiring.
+            Max 15 words.
+        """.trimIndent()
+
+        val request = ChatCompletionRequest(
+            messages = listOf(ChatMessage("user", prompt)),
+            max_tokens = 50
+        )
+
+        return try {
+            val response = api.generateRoadmap(request, "Bearer $apiKey")
+            response.choices[0].message.content.trim()
+        } catch (e: Exception) {
+            "Consistency is Key: Complete your main goal task today!"
+        }
+    }
+
     suspend fun generateRoastMessage(
         userPreference: String,
         gender: String,
