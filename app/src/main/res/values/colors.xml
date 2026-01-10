@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Modern Night Mode Aesthetic -->
-    <color name="primary">#8A2BE2</color> <!-- Blue Violet -->
-    <color name="primary_variant">#4B0082</color> <!-- Indigo -->
-    <color name="secondary">#00CED1</color> <!-- Dark Turquoise -->
-    <color name="secondary_variant">#008B8B</color> <!-- Dark Cyan -->
-    <color name="background">#0F0F1A</color> <!-- Deep Midnight -->
-    <color name="surface">#1A1A2E</color> <!-- Dark Surface -->
-    <color name="on_surface">#E0E0E0</color> <!-- Light Grey Text -->
-    <color name="card_background">#252545</color> <!-- Glass-like Card -->
-    <color name="error">#FF4D4D</color>
-    <color name="success">#00FA9A</color> <!-- Medium Spring Green -->
-    <color name="accent_gold">#FFD700</color> <!-- For Guru level -->
+    <!-- High-Contrast Professional Night Mode -->
+    <color name="primary">#BB86FC</color> <!-- Light Purple (Better for dark bg) -->
+    <color name="primary_variant">#3700B3</color>
+    <color name="secondary">#03DAC6</color> <!-- Bright Teal -->
+    <color name="secondary_variant">#018786</color>
+    <color name="background">#121212</color> <!-- Material Dark Grey -->
+    <color name="surface">#1E1E1E</color> <!-- Slightly Lighter Grey -->
+    <color name="on_surface">#FFFFFF</color> <!-- Pure White for readability -->
+    <color name="on_background">#FFFFFF</color>
+    <color name="card_background">#2C2C2C</color> <!-- Clear Card Contrast -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color> <!-- Readable Grey -->
+    <color name="error">#CF6679</color>
+    <color name="success">#03DAC6</color>
+    <color name="accent_gold">#FFD700</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
 </resources>
