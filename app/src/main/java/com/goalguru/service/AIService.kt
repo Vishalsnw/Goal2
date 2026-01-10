@@ -34,18 +34,20 @@ class AIService(private val apiKey: String) {
                 "estimatedDays": 30,
                 "days": [
                     {"day": 1, "title": "Task Title", "description": "Specific action to take", "tips": ["Tip 1", "Tip 2"]},
-                    {"day": 2, "title": "Task Title", "description": "Specific action to take", "tips": ["Tip 1", "Tip 2"]}
+                    ... up to N days ...
                 ]
             }
             
             Requirements:
-            1. Estimate days needed: Provide a realistic timeframe. For complex professional goals (like movie director), estimate 60-180 days. For simple goals, 7-30 days.
-            2. The roadmap must be high-quality: Include foundational learning, skill building, networking, and practical execution steps.
-            3. Create realistic, actionable daily tasks that actually lead to the result.
-            4. Each day must have a specific title and description related to achieving the goal.
+            1. Estimate days needed: Provide a realistic timeframe based on complexity. 
+               - Simple tasks: 7-21 days.
+               - Skill acquisition: 30-90 days.
+               - Career goals (e.g. Movie Director): 120-365 days.
+            2. Variable Length: Do NOT always give 30 days. Provide as many days as actually needed for a complete roadmap.
+            3. The roadmap must be high-quality: Include foundational learning, skill building, networking, and practical execution steps.
+            4. Each day must have a unique, specific title and description.
             5. Include 1-2 practical expert tips per day.
             6. Return ONLY valid JSON, nothing else.
-            7. Do NOT use markdown code blocks.
         """.trimIndent()
 
         val request = ChatCompletionRequest(
@@ -168,16 +170,18 @@ class AIService(private val apiKey: String) {
                 """
                 Generate a savage, humorous roast/insult in Hinglish (Hindi + English) for a $age year old who hasn't completed their task: '$taskTitle'. 
                 The roast level is $userPreference. 
-                Use street-style language like "Bhai tu lukkha hi marega" or "Abey saale". 
-                Be extremely funny and insulting but keep it to the task. 
-                Max 20 words. Use Devnagari for Hindi parts if appropriate, or just Roman script.
+                Use diverse, creative insults and modern Indian slang. 
+                AVOID repetitive words like "Abey", "Saale", or focusing too much on age.
+                Be witty and varied. Use references to laziness, procrastination, or funny consequences.
+                Max 20 words.
                 """.trimIndent()
             else ->
                 """
-                Generate a savage, brutally honest, and funny roast for a $age year old who hasn't completed their task: '$taskTitle'. 
+                Generate a savage, brutally honest, and funny roast for a person who hasn't completed their task: '$taskTitle'. 
                 The roast level is $userPreference. 
-                Be creative, use modern slang, and don't be afraid to be mean in a hilarious way. 
-                Make the user feel like a total slacker for missing this. 
+                Be creative and diverse. AVOID being repetitive. Do not just focus on their age ($age).
+                Use modern slang, pop culture references, and witty humor.
+                Make the user feel the burn in a new way every time. 
                 Max 20 words.
                 """.trimIndent()
         }
