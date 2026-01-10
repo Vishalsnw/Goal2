@@ -100,6 +100,64 @@
 
         </LinearLayout>
 
+        <!-- Guru RPG Stats Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guru Status"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+            <TextView
+                android:id="@+id/tv_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guru Level: 1 (Seeker)"
+                android:padding="12dp"
+                android:textSize="16sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp">
+                <TextView
+                    android:id="@+id/tv_xp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="XP: 0"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tv_guru_points"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Guru Points: 0"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

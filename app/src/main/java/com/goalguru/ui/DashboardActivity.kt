@@ -35,8 +35,9 @@ class DashboardActivity : AppCompatActivity() {
                     binding.tvBestStreak.text = "Best Streak: ${prefs.bestStreak}"
                     
                     // Display Guru RPG Stats
+                    // Note: Ensure these IDs exist in activity_dashboard.xml
                     binding.tvLevel.text = "Guru Level: ${prefs.level} (${prefs.guruTitle})"
-                    binding.tvXP.text = "XP: ${prefs.xp}"
+                    binding.tvXp.text = "XP: ${prefs.xp}"
                     binding.tvGuruPoints.text = "Guru Points: ${prefs.guruPoints}"
                 }
             } else {
@@ -45,6 +46,9 @@ class DashboardActivity : AppCompatActivity() {
                 binding.tvCompletionPercentage.text = "Progress: 0%"
                 binding.tvCurrentStreak.text = "Current Streak: 0"
                 binding.tvBestStreak.text = "Best Streak: 0"
+                binding.tvLevel.text = "Guru Level: 1 (Seeker)"
+                binding.tvXp.text = "XP: 0"
+                binding.tvGuruPoints.text = "Guru Points: 0"
             }
         }
     }
