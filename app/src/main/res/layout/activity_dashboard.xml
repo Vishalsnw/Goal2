@@ -16,8 +16,9 @@
             android:layout_height="wrap_content"
             android:text="Analytics"
             android:textColor="@color/text_primary"
-            android:textSize="32sp"
+            android:textSize="36sp"
             android:fontFamily="sans-serif-black"
+            android:letterSpacing="-0.02"
             android:layout_marginBottom="32dp" />
 
         <!-- Progress Overview -->
