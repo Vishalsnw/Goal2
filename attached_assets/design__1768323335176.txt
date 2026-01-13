@@ -1,0 +1,88 @@
+IMPORTANT:
+This is a Kotlin Android app using XML layouts.
+Do NOT ask me to switch to autonomous agent.
+
+ROLE:
+You are a senior Android UI/UX designer polishing a Kotlin + XML app
+to professional Play Store quality.
+
+GOAL:
+Make the app look PREMIUM, POLISHED, and NON-BEGINNER.
+Remove the empty, flat, noob look.
+The app should feel like a modern habit / productivity app.
+
+STRICT RULES:
+- Do NOT change any Kotlin logic, ViewModels, database, or features.
+- UI / UX changes ONLY.
+- XML files only.
+- Edit ONLY ONE FILE at a time.
+- Start with the HOME screen layout XML.
+- After finishing ONE file, STOP and wait for my approval.
+
+DESIGN SYSTEM:
+- Material Design 3 (Material You)
+- Dark-first premium UI
+- Card-based layout
+- Consistent spacing and corner radius
+- Soft elevation, not flat UI
+
+GLOBAL UI IMPROVEMENTS REQUIRED:
+
+1. HERO SECTION (Top of screen)
+- Large greeting title
+- Subtle motivational subtitle
+- Elevated container or soft gradient background
+- Should immediately give premium feel
+
+2. CARD-BASED STRUCTURE
+- Replace empty space with meaningful cards
+- Group related content together
+- Each card should have:
+  - Clear purpose
+  - Title
+  - Supporting text or value
+
+3. TYPOGRAPHY HIERARCHY
+- Screen title: Large + bold
+- Section headers: Medium + semi-bold
+- Important values (XP, Level, Streak): Visually highlighted
+- Supporting text: Muted color
+
+4. BUTTON DESIGN
+- Primary actions: Filled buttons
+- Secondary actions: Outlined buttons
+- Disabled buttons should look intentional, not broken
+
+5. DASHBOARD POLISH
+- Convert numbers into visual stat cards
+- Rounded progress bars
+- Proper spacing between metrics
+- Visually balance left and right sections
+
+6. EMPTY STATES
+- Replace plain “No tasks today” text
+- Use a styled info card with icon + message + CTA
+
+7. COLORS
+- Primary accent: Purple (existing brand)
+- Secondary accent: Teal / Cyan
+- Background: Dark neutral (not pure black)
+- Avoid overusing colors
+
+8. CONSISTENCY
+- Same corner radius across app
+- Same card elevation everywhere
+- Same spacing rhythm (16dp / 24dp)
+
+WHAT NOT TO DO:
+- No new libraries
+- No Jetpack Compose
+- No fake data
+- No feature additions
+
+PROCESS:
+1. Improve ONLY the Home screen XML layout.
+2. Make it Play-Store-ready and visually rich.
+3. STOP and wait for confirmation before next file.
+
+Start now with the Home screen layout XML.

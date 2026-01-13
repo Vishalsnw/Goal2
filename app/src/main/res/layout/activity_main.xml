@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="@color/background">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -31,7 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="24dp">
 
             <!-- Hero Section -->
             <com.google.android.material.card.MaterialCardView
@@ -39,15 +40,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 app:cardBackgroundColor="@color/primary"
-                app:cardCornerRadius="28dp"
-                app:cardElevation="8dp"
+                app:cardCornerRadius="32dp"
+                app:cardElevation="12dp"
                 app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="28dp">
+                    android:padding="32dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -63,8 +64,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Ready to master your destiny today?"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                        android:textColor="#33121212"
-                        android:alpha="0.8" />
+                        android:textColor="#CC121212"
+                        android:lineSpacingExtra="4dp" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -96,17 +97,17 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
                     app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="2dp"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="4dp"
                     app:strokeColor="@color/primary"
-                    app:strokeWidth="1dp">
+                    app:strokeWidth="1.5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="start|center_vertical"
                         android:orientation="vertical"
-                        android:padding="20dp">
+                        android:padding="24dp">
 
                         <ImageView
                             android:layout_width="48dp"
@@ -117,7 +118,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="20dp"
                             android:text="New Goal"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="@color/text_primary"
@@ -126,7 +127,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="6dp"
                             android:text="Start a fresh path"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/text_secondary" />
@@ -142,17 +143,17 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
                     app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="2dp"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="4dp"
                     app:strokeColor="@color/secondary"
-                    app:strokeWidth="1dp">
+                    app:strokeWidth="1.5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="start|center_vertical"
                         android:orientation="vertical"
-                        android:padding="20dp">
+                        android:padding="24dp">
 
                         <ImageView
                             android:layout_width="48dp"
@@ -163,7 +164,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="20dp"
                             android:text="Daily Tasks"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="@color/text_primary"
@@ -172,7 +173,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="6dp"
                             android:text="Daily grind items"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/text_secondary" />
@@ -188,17 +189,18 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
                     app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="2dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="4dp"
                     app:strokeColor="@color/success"
-                    app:strokeWidth="1dp">
+                    app:strokeWidth="1.5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="start|center_vertical"
                         android:orientation="vertical"
-                        android:padding="20dp">
+                        android:padding="24dp">
 
                         <ImageView
                             android:layout_width="48dp"
@@ -209,7 +211,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="20dp"
                             android:text="Dashboard"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="@color/text_primary"
@@ -218,7 +220,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="6dp"
                             android:text="Track growth"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/text_secondary" />
@@ -234,17 +236,18 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
                     app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="2dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="4dp"
                     app:strokeColor="@color/text_secondary"
-                    app:strokeWidth="1dp">
+                    app:strokeWidth="1.5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="start|center_vertical"
                         android:orientation="vertical"
-                        android:padding="20dp">
+                        android:padding="24dp">
 
                         <ImageView
                             android:layout_width="48dp"
@@ -255,7 +258,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="20dp"
                             android:text="Settings"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="@color/text_primary"
@@ -264,7 +267,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="6dp"
                             android:text="Tune experience"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/text_secondary" />
