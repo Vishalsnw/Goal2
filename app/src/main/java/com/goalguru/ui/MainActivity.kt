@@ -9,6 +9,9 @@ import com.goalguru.data.UserPreferences
 import com.goalguru.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
+import android.view.animation.AnimationUtils
+import com.goalguru.R
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: GoalGuruDatabase
@@ -19,6 +22,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         db = GoalGuruDatabase.getDatabase(this)
+
+        // Apply animations
+        val fadeSlideUp = AnimationUtils.loadAnimation(this, R.anim.fade_slide_up)
+        binding.heroCard.startAnimation(fadeSlideUp)
+        
+        val popIn = AnimationUtils.loadAnimation(this, R.anim.pop_in)
+        binding.btnNewGoal.startAnimation(popIn)
+        binding.btnDailyTask.startAnimation(popIn)
+        binding.btnDashboard.startAnimation(popIn)
+        binding.btnSettings.startAnimation(popIn)
 
         requestNotificationPermission()
 

@@ -91,7 +91,9 @@ class GoalEntryActivity : AppCompatActivity() {
         binding.loadingLayout.visibility = if (isLoading) android.view.View.VISIBLE else android.view.View.GONE
         if (isLoading) {
             val rotation = AnimationUtils.loadAnimation(this, R.anim.rotate_3d)
+            val popIn = AnimationUtils.loadAnimation(this, R.anim.pop_in)
             binding.loadingCircle.startAnimation(rotation)
+            binding.loadingLayout.startAnimation(popIn)
         } else {
             binding.loadingCircle.clearAnimation()
         }
