@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:text="Hello, Guru"
                         android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
-                        android:textColor="#121212"
+                        android:textColor="@color/hero_text_on_primary"
                         android:textStyle="bold" />
 
                     <TextView
@@ -64,7 +64,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Ready to master your destiny today?"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                        android:textColor="#CC121212"
+                        android:textColor="@color/hero_text_on_primary"
+                        android:alpha="0.85"
                         android:lineSpacingExtra="4dp" />
 
                 </LinearLayout>

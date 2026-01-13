@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- High-Contrast Professional Night Mode -->
-    <color name="primary">#BB86FC</color> <!-- Light Purple (Better for dark bg) -->
-    <color name="primary_variant">#3700B3</color>
-    <color name="secondary">#03DAC6</color> <!-- Bright Teal -->
+    <color name="primary">#D0BCFF</color> <!-- Lighter Purple for better contrast on dark -->
+    <color name="primary_variant">#381E72</color>
+    <color name="secondary">#03DAC6</color>
     <color name="secondary_variant">#018786</color>
-    <color name="background">#121212</color> <!-- Material Dark Grey -->
-    <color name="surface">#1E1E1E</color> <!-- Slightly Lighter Grey -->
-    <color name="on_surface">#FFFFFF</color> <!-- Pure White for readability -->
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="on_surface">#FFFFFF</color>
     <color name="on_background">#FFFFFF</color>
-    <color name="card_background">#2C2C2C</color> <!-- Clear Card Contrast -->
+    <color name="card_background">#2C2C2C</color>
     <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#B0B0B0</color> <!-- Readable Grey -->
-    <color name="error">#CF6679</color>
-    <color name="success">#03DAC6</color>
+    <color name="text_secondary">#E0E0E0</color> <!-- Brightened from #B0B0B0 for better contrast -->
+    <color name="error">#F2B8B5</color>
+    <color name="success">#B4E4C8</color>
     <color name="accent_gold">#FFD700</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- UI Overlay Colors -->
+    <color name="hero_text_on_primary">#121212</color>
+    <color name="hero_subtext_on_primary">#33121212</color>
 </resources>
