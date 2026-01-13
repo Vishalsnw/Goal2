@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="@color/background">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -32,16 +32,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="24dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="24dp"
                 android:text="Today's Mission"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
                 android:textColor="@color/text_primary"
-                android:textStyle="bold"
-                android:layout_marginBottom="24dp" />
+                android:textStyle="bold" />
 
             <!-- Mission Block -->
             <com.google.android.material.card.MaterialCardView
@@ -50,16 +52,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="28dp"
-                app:cardElevation="6dp"
+                app:cardCornerRadius="32dp"
+                app:cardElevation="10dp"
                 app:strokeColor="@color/primary"
-                app:strokeWidth="1dp">
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="28dp">
+                    android:padding="32dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -88,11 +90,11 @@
                         android:id="@+id/tv_task_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="24dp"
                         android:text="Your journey of a thousand miles begins with this single step. Focus all your energy on completing this objective."
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                         android:textColor="@color/text_primary"
-                        android:lineSpacingExtra="4sp" />
+                        android:lineSpacingExtra="6dp" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -100,17 +102,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="4dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_complete"
                     android:layout_width="0dp"
                     android:layout_height="64dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="10dp"
-                    android:text="MISSION COMPLETE"
+                    android:layout_weight="1.2"
+                    android:layout_marginEnd="12dp"
+                    android:text="COMPLETE"
                     android:textStyle="bold"
-                    app:cornerRadius="20dp"
+                    android:letterSpacing="0.1"
+                    app:cornerRadius="24dp"
                     app:icon="@android:drawable/checkbox_on_background" />
 
                 <com.google.android.material.button.MaterialButton
@@ -119,10 +123,10 @@
                     android:layout_width="0dp"
                     android:layout_height="64dp"
                     android:layout_weight="1"
-                    android:layout_marginStart="10dp"
                     android:text="RECALIBRATE"
                     android:textColor="@color/text_secondary"
-                    app:cornerRadius="20dp"
+                    android:letterSpacing="0.05"
+                    app:cornerRadius="24dp"
                     app:strokeColor="@color/text_secondary" />
 
             </LinearLayout>
@@ -133,37 +137,38 @@
                 style="?attr/materialCardViewFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="48dp"
                 android:visibility="gone"
                 app:cardBackgroundColor="#2C1E1E"
-                app:cardCornerRadius="24dp"
-                app:strokeColor="#CF6679"
-                app:strokeWidth="1dp">
+                app:cardCornerRadius="28dp"
+                app:cardElevation="4dp"
+                app:strokeColor="@color/error"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="24dp">
+                    android:padding="28dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Guru's Accountability Check"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                        android:textColor="#CF6679"
+                        android:textColor="@color/error"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_roast"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="16dp"
                         android:text="Is that all you've got? The path to mastery isn't paved with excuses."
                         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                         android:textColor="#FF8A80"
                         android:textStyle="italic"
-                        android:lineSpacingExtra="2sp" />
+                        android:lineSpacingExtra="4dp" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -172,12 +177,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="64dp"
                 android:text="Consistency is the key to greatness."
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                 android:textColor="@color/text_secondary"
-                android:alpha="0.5" />
+                android:alpha="0.4"
+                android:letterSpacing="0.05" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
