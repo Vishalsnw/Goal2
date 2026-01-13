@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="@color/background">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -32,82 +32,96 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="24dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="24dp"
                 android:text="App Customization"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
                 android:textColor="@color/text_primary"
-                android:textStyle="bold"
-                android:layout_marginBottom="24dp" />
+                android:textStyle="bold" />
 
             <!-- General Settings Card -->
             <com.google.android.material.card.MaterialCardView
                 style="?attr/materialCardViewFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="24dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="24dp"
-                app:strokeWidth="0dp">
+                app:cardCornerRadius="32dp"
+                app:cardElevation="6dp"
+                app:strokeColor="@color/primary"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="28dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Localization &amp; Personalization"
+                        android:layout_marginBottom="20dp"
+                        android:text="Personalization"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                         android:textColor="@color/primary"
                         android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
+                        android:letterSpacing="0.05" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="Language"
-                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="@color/text_secondary" />
 
                     <Spinner
                         android:id="@+id/spinner_language"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="56dp"
                         android:entries="@array/languages"
-                        android:layout_marginBottom="16dp" />
+                        android:layout_marginBottom="20dp"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:overlapAnchor="false" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="Guru Persona"
-                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="@color/text_secondary" />
 
                     <Spinner
                         android:id="@+id/spinner_gender"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="56dp"
                         android:entries="@array/genders"
-                        android:layout_marginBottom="16dp" />
+                        android:layout_marginBottom="20dp"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:overlapAnchor="false" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="Interface Theme"
-                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="@color/text_secondary" />
 
                     <Spinner
                         android:id="@+id/spinner_theme"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:entries="@array/themes" />
+                        android:layout_height="56dp"
+                        android:entries="@array/themes"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:overlapAnchor="false" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -119,37 +133,41 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="24dp"
-                app:strokeWidth="0dp">
+                app:cardCornerRadius="32dp"
+                app:cardElevation="6dp"
+                app:strokeColor="@color/secondary"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="28dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
                         android:text="Daily Reminders"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                         android:textColor="@color/secondary"
                         android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
+                        android:letterSpacing="0.05" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
                         android:text="Notification Time"
-                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginBottom="8dp" />
+                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                        android:textColor="@color/text_secondary" />
 
                     <TimePicker
                         android:id="@+id/time_picker_notification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:timePickerMode="spinner" />
+                        android:timePickerMode="spinner"
+                        android:theme="@style/Theme.GoalGuru" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -160,18 +178,21 @@
                 android:layout_height="64dp"
                 android:text="SAVE PREFERENCES"
                 android:textStyle="bold"
-                app:cornerRadius="20dp"
-                app:elevation="4dp" />
+                android:letterSpacing="0.1"
+                app:cornerRadius="28dp"
+                app:elevation="8dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginBottom="32dp"
                 android:text="GoalGuru v1.0"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                 android:textColor="@color/text_secondary"
-                android:alpha="0.4" />
+                android:alpha="0.4"
+                android:letterSpacing="0.05" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
